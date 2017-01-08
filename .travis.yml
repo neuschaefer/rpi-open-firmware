@@ -1,0 +1,23 @@
+language: c
+dist: trusty    # gcc-arm-none-eabi isn't available in older Ubuntu
+sudo: false
+
+addons:
+  apt:
+    packages:
+      - cmake
+      - gcc-arm-none-eabi
+      - guile-1.8
+      - libgmp-dev
+      - libmpc-dev
+      - libmpfr-dev
+      - libqt4-dev
+      - texinfo
+
+install:
+  - git clone --recursive https://github.com/puppeh/vc4-toolchain.git
+  - (cd vc4-toolchain && ./build-all.sh)
+
+script:
+  - export "PATH=$PATH:$PWD/vc4-toolchain/prefix/bin"
+  - ./buildall.sh
